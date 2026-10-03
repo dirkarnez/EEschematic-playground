@@ -40,8 +40,8 @@ import os
 load_dotenv()
 
 # Access the API URL and API key
-api_base_url = 'https://generativelanguage.googleapis.com/v1beta/openai/'
-api_key = ''
+api_base_url = os.getenv('API_URL')
+api_key = os.getenv('API_KEY')
 
 #print(f"API URL: {api_base_url}")
 #print(f"API Key: {api_key}")
