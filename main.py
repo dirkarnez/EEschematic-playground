@@ -4,9 +4,9 @@
 # In[ ]:
 
 
-import sys
-get_ipython().system('{sys.executable} -m pip install openai boto3 dotenv')
-get_ipython().system('jupyter nbconvert --to script notebook.ipynb')
+# import sys
+# get_ipython().system('{sys.executable} -m pip install openai boto3 dotenv')
+# get_ipython().system('jupyter nbconvert --to script notebook.ipynb')
 import subprocess
 import numpy as np
 import matplotlib.pyplot as plt
@@ -26,8 +26,8 @@ from scipy.fft import fft, fftfreq
 # In[ ]:
 
 
-get_ipython().system('sudo apt install ngspice')
-get_ipython().system('sudo ngspice --version')
+# get_ipython().system('sudo apt install ngspice')
+# get_ipython().system('sudo ngspice --version')
 
 
 # In[ ]:
@@ -279,7 +279,7 @@ Netlist: {netlist}"
 '''
 #print(tasks_generation_prompt)
 tasks = make_chat_completion_request(tasks_generation_prompt)
-#print(tasks)
+print(tasks)
 
 
 # In[ ]:

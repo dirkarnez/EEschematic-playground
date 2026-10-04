@@ -3,8 +3,8 @@
 
 set DOWNLOADS_DIR=%USERPROFILE%\Downloads
 
-set PREFIX=D:\Softwares
-@REM set PREFIX=%DOWNLOADS_DIR%
+@REM set PREFIX=D:\Softwares
+set PREFIX=%DOWNLOADS_DIR%
 
 
 set SEVENZIP=C:\"Program Files"\7-Zip\7z.exe
@@ -34,3 +34,17 @@ del PortableGit-2.42.0.2-64-bit.7z.exe
 if exist %GIT_EXE% (
     echo git %GIT_EXE% found
 )
+
+set NGSPICE_EXE=%PREFIX%\ngspice-47_64\Spice64\bin\ngspice.exe
+if not exist %NGSPICE_EXE% (
+cd /d "%TEMP%" &&^
+%SystemRoot%\System32\curl.exe "https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/47/ngspice-47_64.7z?ts=gAAAAABqwiQ34dbpFN2c2zJ9I_ft4EXqZJrsCWi6Gr3xSAB5V1j6e6u9nGqrKah_fywSOj5-Jry9Nx-8OSHHlJEHRlPLFgabtA%3D%3D&r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fngspice%2Ffiles%2Fng-spice-rework%2F47%2Fngspice-47_64.7z%2Fdownload" -L -O  &&^
+%SEVENZIP% x ngspice-47_64.7z -o%DOWNLOADS_DIR%\ngspice-47_64 &&^
+del ngspice-47_64.7z
+)
+
+if exist %NGSPICE_EXE% (
+    echo ngspice %NGSPICE_EXE% found
+)
+
+

@@ -1,1 +1,8 @@
-bpy==5.0.0
+numpy
+matplotlib
+openai
+boto3
+pandas
+scipy
+requests
+dotenv
