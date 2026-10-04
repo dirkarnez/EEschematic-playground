@@ -277,7 +277,7 @@ tasks_generation_prompt = f'''system: {tasks_generation_SYSTEM_PROMPT},
 "human": "Question: {tasks_generation_question},
 Netlist: {netlist}"
 '''
-#print(tasks_generation_prompt)
+print(tasks_generation_prompt)
 tasks = make_chat_completion_request(tasks_generation_prompt)
 print(tasks)
 
@@ -1197,15 +1197,14 @@ def run_ngspice(circuit, filename):
         f.write(circuit)
 
     try:
-        result = subprocess.run(['ngspice', '-b', f'output/{filename}.cir'], capture_output=True, text=True)
+        result = subprocess.run(['ngspice_con', '-b', f'output/{filename}.cir'], capture_output=True, text=True)
         ngspice_output = result.stdout
         with open(output_file, "w") as f:
             f.write(ngspice_output)
     except Exception as e:
         ngspice_output = f"Error running NGspice: {str(e)}"
 
-    print("NGspice output:")
-    #print(ngspice_output)
+    print(f"@@@ NGspice output: {ngspice_output}")
 
 def tool_calling(tool_chain):
     global Gain_init, Bw_init, Pm_init, Dc_Gain_init,Tran_Gain_init, CMRR_init, Power_init, InputRange_Init,Thd_init, OW_init, Offset_init, UBw_init, ICMR_init
@@ -1742,61 +1741,61 @@ def optimization(tools, target_values, sim_netlist):
             else:
                 gain_pass = False
 
-        if tr_gain_target is not None:
+        if tr_gain_target is not None and tr_gain_output is not None:
             if tr_gain_output >= tr_gain_target - tr_gain_target * tolerance:
                 tr_gain_pass = True
             else:
                 tr_gain_pass = False
 
-        if output_swing_target is not None:
+        if output_swing_target is not None and ow_output is not None:
             if ow_output >= output_swing_target - output_swing_target * tolerance:
                 ow_pass = True
             else:
                 ow_pass = False
 
-        if input_offset_target is not None:
+        if input_offset_target is not None and offset_output is not None:
             if offset_output <= input_offset_target - input_offset_target * tolerance:
                 input_offset_pass = True
             else:
                 input_offset_pass = False     
 
-        if icmr_target is not None:
+        if icmr_target is not None and icmr_output is not None:
             if icmr_output >= icmr_target - icmr_target * tolerance:
                 icmr_pass = True
             else:
                 icmr_pass = False   
         
-        if bandwidth_target is not None:
+        if bandwidth_target is not None and bw_output is not None:
             if bw_output >= bandwidth_target - bandwidth_target * tolerance:
                 bw_pass = True
             else:
                 bw_pass = False
 
-        if unity_bandwidth_target is not None:
+        if unity_bandwidth_target is not None and ubw_output is not None:
             if ubw_output >= unity_bandwidth_target - unity_bandwidth_target * tolerance:
                 ubw_pass = True
             else:
                 ubw_pass = False
 
-        if phase_margin_target is not None:
+        if phase_margin_target is not None and pm_output is not None:
             if pm_output >= phase_margin_target - phase_margin_target * tolerance:
                 pm_pass = True
             else:
                 pm_pass = False
 
-        if pr_target is not None:
+        if pr_target is not None and pr_output is not None:
             if pr_output <= pr_target + pr_target * tolerance:
                 pr_pass = True
             else:
                 pr_pass = False
 
-        if cmrr_target is not None:
+        if cmrr_target is not None and cmrr_output is not None:
             if cmrr_output >= cmrr_target - cmrr_target * tolerance:
                 cmrr_pass = True
             else:
                 cmrr_pass = False
 
-        if thd_target is not None:
+        if thd_target is not None and thd_output is not None:
             if thd_output <= thd_target + np.abs(thd_target) * tolerance:
                 thd_pass = True
             else:
@@ -1853,6 +1852,7 @@ def run_multiple_optimizations(target_values, sim_netlist, num_runs=1):
         results.append(result)  # Append the result of each run to the results list
         print(f"Run {i + 1} result: {result}")
         print("----------------------\n")    
+
 results = run_multiple_optimizations(target_values, sim_netlist)
 
 
