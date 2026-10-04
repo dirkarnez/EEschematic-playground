@@ -312,7 +312,7 @@ def get_tasks(tasks):
         print(f"Missing key in JSON: {e}")
 
 get_tasks(tasks)
-#print(type_question)
+print(type_question)
 
 
 # In[ ]:
