@@ -1926,5 +1926,5 @@ fig.legend(handles, labels, loc='upper center', bbox_to_anchor=(0.5, 0.92), ncol
 
 # Save the figure
 plt.savefig('railtorail_subplots_4x2.pdf', format='pdf', bbox_inches='tight')
-plt.show()
+# plt.show()
 
